@@ -2,7 +2,7 @@
 ## [1] https://github.com/sameersbn/docker-gitlab
 
 FROM centos:centos6
-MAINTAINER Jazz Wang <jazzwang.tw@gmail.com>
+MAINTAINER Antonin Bruneau <antonin.bruneau@gmail.com>
 
 COPY app/ /app/
 RUN /app/setup/install
