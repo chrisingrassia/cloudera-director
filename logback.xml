@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014 Cloudera, Inc. All rights reserved.
+  -->
+
+<configuration debug="false" scan="true" scanPeriod="30 seconds">
+
+    <property name="MAIN_LOG_FILE" value="${MAIN_LOG_FILE:-${LOG_DIR:-logs}/application.log}"/>
+    <property name="FILE_LOG_PATTERN"
+              value="[%date{yyyy-MM-dd HH:mm:ss.SSS ZZ}] %-5level [%thread] - %logger{36}: %msg%n"/>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${MAIN_LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${MAIN_LOG_FILE}.%i</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>50MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <!-- Filter out any log messages marked as "SENSITIVE" regardless of log level -->
+    <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">
+        <Name>SENSITIVE_FILTER</Name>
+        <Marker>SENSITIVE</Marker>
+        <OnMatch>DENY</OnMatch>
+    </turboFilter>
+
+    <!-- Filter out any log messages marked as "DEVELOPER" regardless of log level -->
+    <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">
+        <Name>DEVELOPER_FILTER</Name>
+        <Marker>DEVELOPER</Marker>
+        <OnMatch>DENY</OnMatch>
+    </turboFilter>
+
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="net.schmizz" level="ERROR"/>
+    <logger name="net.schmizz.sshj.common.StreamCopier" level="OFF"/>
+    <logger name="org.apache.cxf" level="ERROR"/>
+    <logger name="com.google.common.cache" level="ERROR"/>
+    <logger name="h2database" level="ERROR" />
+
+    <logger name="com.cloudera.director.aws.shaded.com.amazonaws.http.AmazonHttpClient" level="ERROR"/>
+
+</configuration>
