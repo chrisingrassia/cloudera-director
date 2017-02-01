@@ -7,4 +7,11 @@ MAINTAINER Antonin Bruneau <antonin.bruneau@gmail.com>
 COPY app/ /app/
 RUN /app/setup/install
 
-ENTRYPOINT ["/app/init"]
+# All we're doing here is replacing the init script with one that starts director-server into the
+# foreground and logs to stdout
+
+COPY cloudera-director-server.init /etc/init.d/cloudera-director-server
+
+EXPOSE 7189
+
+ENTRYPOINT ["/etc/init.d/cloudera-director-server", "start"]

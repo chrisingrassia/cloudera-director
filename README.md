@@ -5,17 +5,13 @@ Docker Image for Cloudera Director
 
 ### 1. Pull Docker Image ###
 
-    docker pull abruneau/cloudera-director
+    docker pull andry1/cloudera-director
 
-### 2. Create Docker Instance ###
+### 2. Run it ###
 
-    docker create -it --name director -h director -p 7189:7189 abruneau/cloudera-director 
+    docker run -it --name director -h director -p 7189:7189 andry1/cloudera-director
 
-### 3. Start Docker Instance ###
-
-    docker start director
-
-### 4. Login Docker Instance ###
+### 4. Get to a shell in the running container ###
 
     docker exec -it director /bin/bash
 
