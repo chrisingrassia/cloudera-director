@@ -16,4 +16,6 @@ COPY logback-access.xml /etc/cloudera-director-server/logback-access.xml
 
 EXPOSE 7189
 
+VOLUME /var/lib/cloudera-director-server
+
 ENTRYPOINT ["/etc/init.d/cloudera-director-server", "start"]
