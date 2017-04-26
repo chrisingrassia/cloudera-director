@@ -6,6 +6,8 @@
 
 DIR=$(dirname $0)
 
+yum -y update
+
 rpm --import $DIR/RPM-GPG-KEY-cloudera
 cp $DIR/cloudera-director.repo /etc/yum.repos.d/
 
