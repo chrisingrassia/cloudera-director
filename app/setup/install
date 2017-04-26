@@ -4,7 +4,7 @@
 
 set -e
 
-export JDK_URL=http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm
+export JDK_URL=http://archive.cloudera.com/director/redhat/7/x86_64/director/2.3.0/RPMS/x86_64/jdk-8u60-linux-x64.rpm
 
 /app/setup/jdk/install
 /app/setup/cloudera-director/install
